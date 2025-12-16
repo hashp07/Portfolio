@@ -1,0 +1,61 @@
+/* D:\portfolio\src\components\Hero.css */
+
+.gradient-text-blue {
+    /* * NEW: Apply Crimson Text font family 
+     */
+    font-family: 'Crimson Text', serif; 
+    
+    /* Sets the default color to a bright, slightly blue-tinted white */
+    color: #04bcea; 
+    
+    /* Ensures compatibility with browsers that might use text-fill-color */
+    -webkit-text-fill-color: #CCD6F6; 
+    
+    /* Neon Text Shadow/Glow Effect using the primary blue color (#4D90FE) */
+    text-shadow: 
+        0 0 5px rgba(77, 144, 254, 0.7), 
+        0 0 15px rgba(77, 144, 254, 0.5), 
+        0 0 25px rgba(77, 144, 254, 0.3); 
+
+    /* Animation for a subtle pulsing glow effect, matching the image's dynamic feel */
+    /* animation: pulse-glow 2s infinite alternate ease-in-out; */
+}
+
+/* Keyframes for the pulsing text glow */
+@keyframes pulse-glow {
+    0% {
+        text-shadow: 
+            0 0 5px rgba(77, 144, 254, 0.7), 
+            0 0 10px rgba(77, 144, 254, 0.5);
+    }
+    100% {
+        text-shadow: 
+            0 0 8px rgba(106, 175, 255, 1), 
+            0 0 15px rgba(106, 175, 255, 0.8),
+            0 0 25px rgba(77, 144, 254, 0.5);
+    }
+}
+
+/* Add this to your Hero.css file */
+
+/* Custom CSS for the Blinking Cursor */
+.typing-cursor {
+    display: inline-block;
+    vertical-align: top;
+    font-weight: 300;
+    margin-left: 2px;
+    animation: blink 0.9s infinite;
+}
+
+@keyframes blink {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
