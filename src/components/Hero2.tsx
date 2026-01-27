@@ -181,7 +181,7 @@ const Hero = () => {
               {/* Grey Filled Button (Secondary) */}
               <Button size="lg" variant="secondary" className="bg-[#2A2A4A] text-[#CCD6F6] hover:bg-[#3A3A5A] rounded-md font-semibold" asChild>
                 {/* Ensure content inside <a> is clean and treated as one node */}
-                <a href="/_Harsh_Parab_Resume_.pdf" download className="flex items-center gap-2">
+                <a href="/Harsh_Parab_Resume.pdf" download className="flex items-center gap-2">
                   <Download size={18} /> Download Resume
                 </a>
               </Button>
