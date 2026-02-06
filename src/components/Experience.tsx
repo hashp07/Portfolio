@@ -3,6 +3,13 @@ import { Briefcase, Calendar, MapPin } from 'lucide-react';
 const Experience = () => {
   const experiences = [
     {
+      company: 'MUSING QUILLS',
+      role: 'Full Stack Developer Intern',
+      period: 'Present',
+      location: 'BELGAUM, India',
+      description: 'Contributing to the design, development, and maintenance of responsive web applications. Collaborated with senior developers and cross-functional teams to implement user-centric features using modern web technologies. Assisted in debugging, performance optimization, and code reviews while adhering to best practices and project timelines.',
+    },
+    {
       company: 'EdTech India Institute of Bombay',
       role: 'Full Stack Developer',
       period: 'June 2025 – October 2025',
@@ -16,13 +23,7 @@ const Experience = () => {
       location: 'Kolhapur, India',
       description: 'Developed Code M8, an Android application enabling students to collaborate for hackathons, form teams, and connect with members having similar skills.',
     },
-    {
-      company: 'MUSING QUILLS',
-      role: 'WEB Developer Intern',
-      period: 'Present',
-      location: 'BELGAUM, India',
-      description: 'Contributing to the design, development, and maintenance of responsive web applications. Collaborated with senior developers and cross-functional teams to implement user-centric features using modern web technologies. Assisted in debugging, performance optimization, and code reviews while adhering to best practices and project timelines.',
-    },
+    
   ];
 
   return (
