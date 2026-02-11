@@ -74,7 +74,9 @@ const Index = () => {
         {/* FIX: Added 'md:pl-32' to push content right, away from the navbar */}
         <main>
           <Hero />
-          <About />
+          <div className="min-h-screen bg-background">
+      <About />
+    </div>  
           <Experience />
           <Projects />
           <Skills />

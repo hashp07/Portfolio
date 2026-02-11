@@ -5,6 +5,7 @@ import { User, Code, Briefcase, Home, Mail, Menu, X, FolderOpen } from 'lucide-r
 import logoLight from '@/assets/logos1.png'; 
 
 const navLinks = [
+  { name: 'Home', href: '#home', icon: <Home size={22} /> },
   { name: 'About', href: '#about', icon: <User size={22} /> },
   { name: 'Experience', href: '#experience', icon: <Briefcase size={22} /> }, // Added Experience
   { name: 'Projects', href: '#projects', icon: <FolderOpen size={22} /> },    // Changed to Folder icon
@@ -141,13 +142,16 @@ const Navbar = () => {
 
             {/* Bottom/Right Contact Button (Mail Icon) */}
              <motion.div className="relative group shrink-0">
-               <motion.button
+               <a href='#contact'>
+
+                  <motion.button
                  whileHover={{ scale: 1.1 }}
                  whileTap={{ scale: 0.9 }}
                  className="p-3.5 rounded-2xl bg-gradient-to-br from-primary to-blue-600 text-white shadow-[0_0_20px_rgba(77,145,255,0.3)] relative z-10"
                >
                  <Mail size={20} />
                </motion.button>
+               </a>
                <div className="absolute inset-0 bg-primary/40 rounded-2xl animate-ping group-hover:hidden" />
              </motion.div>
 

@@ -385,7 +385,7 @@ const Hero = () => {
   const currentJobTitle = useTypingEffect(jobTitles);
 
   return (
-    <section className="min-h-screen flex items-center justify-center pt-20 relative overflow-hidden bg-[#1A1A2E]">
+    <section id='home' className="min-h-screen flex items-center justify-center pt-20 relative overflow-hidden bg-[#1A1A2E]">
       {/* Background image (Dark, diffused city background) */}
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-10" // Low opacity to keep it dark
