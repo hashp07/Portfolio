@@ -330,7 +330,7 @@
 import { ArrowDown, Github, Linkedin, Mail, Download } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
-import heroBg from '@/assets/hero-bg.jpg';
+import heroBg from '@/assets/hero-bg2.png';
 import profileImg from '@/assets/profile.png';
 import { useState, useEffect } from 'react'; // Import necessary React hooks
 import './Hero.css';
@@ -476,7 +476,7 @@ const Hero = () => {
               className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 flex-wrap"
             >
               {/* Blue Primary Button */}
-              <Button size="lg" className="bg-[#4D90FE] hover:bg-[#4D90FE]/90 text-white rounded-md font-semibold" asChild>
+              <Button size="lg" className="bg-[#12aede] hover:bg-[#12aede]/90 text-white rounded-md font-semibold" asChild>
                 <a href="#contact">Get In Touch</a>
               </Button>
               {/* Grey Outline Button (Subdued) */}
@@ -510,7 +510,7 @@ const Hero = () => {
                 ]
               }}
               transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-              className="w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden border-4 border-[#4D90FE]/50 relative p-1"
+              className="w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden border-4 border-[#12aede]/50 relative p-1"
             >
               <div className="w-full h-full rounded-full overflow-hidden relative">
                 <motion.img
@@ -522,7 +522,7 @@ const Hero = () => {
                   transition={{ duration: 0.3 }}
                 />
                 {/* Sky Blue Overlay Faint */}
-                <div className="absolute inset-0 bg-[#4D90FE]/20 mix-blend-overlay rounded-full"></div>
+                <div className="absolute inset-0 bg-[#12aede]/20 mix-blend-overlay rounded-full"></div>
               </div>
             </motion.div>
           </motion.div>

@@ -1,109 +1,173 @@
 import { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
-import logoLight from '@/assets/logos.png'; 
+import { motion, AnimatePresence } from 'framer-motion';
+// Added 'FolderOpen' for Projects so 'Briefcase' can be used for Experience
+import { User, Code, Briefcase, Home, Mail, Menu, X, FolderOpen } from 'lucide-react';
+import logoLight from '@/assets/logos1.png'; 
 
 const navLinks = [
-  { name: 'About', href: '#about' },
-    { name: 'Skills', href: '#skills' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Experience', href: '#experience' },
+  { name: 'About', href: '#about', icon: <User size={22} /> },
+  { name: 'Experience', href: '#experience', icon: <Briefcase size={22} /> }, // Added Experience
+  { name: 'Projects', href: '#projects', icon: <FolderOpen size={22} /> },    // Changed to Folder icon
+  { name: 'Skills', href: '#skills', icon: <Code size={22} /> },
 ];
 
 const Navbar = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [hoveredLink, setHoveredLink] = useState(null);
+  const [isMobile, setIsMobile] = useState(false);
 
-  // Scroll Handler
+  // Detect screen size to change animation direction
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Smooth Scroll Helper
-  const scrollToContact = () => {
-    setIsMobileMenuOpen(false); // Close mobile menu if open
-    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+  // ---------------------------------------------------------
+  // 🔧 RESPONSIVE CONFIGURATION
+  // ---------------------------------------------------------
+  const containerClasses = isMobile
+    ? "fixed top-24 left-4 right-4 h-16 flex-row px-4 justify-between" // Mobile: Horizontal
+    : "fixed top-6 left-1 bottom-6 w-16 flex-col py-12 items-center justify-between"; // Desktop: Vertical
+
+  const navContainerClasses = isMobile 
+    ? "flex-row gap-3 w-full justify-center" // Reduced gap slightly for mobile to fit 5 items
+    : "flex-col gap-6 w-full";
+
+  // Animation Variants based on device
+  const menuVariants = {
+    hidden: isMobile ? { y: -50, opacity: 0 } : { x: -100, opacity: 0 },
+    visible: { 
+      y: 0, 
+      x: 0, 
+      opacity: 1,
+      transition: { type: "spring", stiffness: 300, damping: 30 }
+    },
+    exit: isMobile ? { y: -50, opacity: 0 } : { x: -100, opacity: 0 }
   };
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 font-dm-sans ${
-        isScrolled
-          ? 'bg-black/90 backdrop-blur-md shadow-card py-3' // Black background on scroll
-          : 'bg-[#10121f] py-4'
-      }`}
-    >
-      <div className="container mx-auto px-4">
-        <nav className="flex items-center justify-between">
-          {/* Logo - Always Light since background is dark */}
-          <a href="/" className="flex items-center gap-3 group">
-            <img
-              src={logoLight} 
-              alt="Tier2 DigiHouse"
-              className="h-20 md:h-16 w-auto transition-transform duration-300 group-hover:scale-105"
-            />
-          </a>
+    <>
+      {/* 1. Mobile Toggle Button */}
+      <button
+        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        className="md:hidden fixed top-6 right-6 z-[60] p-3 rounded-full bg-[#10121f] border border-white/10 text-white shadow-2xl"
+      >
+        <motion.div animate={{ rotate: isMobileMenuOpen ? 90 : 0 }}>
+          {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+        </motion.div>
+      </button>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                // Applied DM Sans here
-                className="relative group font-dm-sans font-medium transition-colors duration-300 text-white hover:text-gray-300 tracking-wide text-sm md:text-base"
-              >
-                {link.name}
-                {/* Purple Underline Animation */}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full bg-[#11b1d9]" />
-              </a>
-            ))}
-            
-            {/* Contact Button - Purple */}
-            <button
-              onClick={scrollToContact}
-              // Applied Designer Font here
-              className="px-6 py-2.5 rounded-lg font-designer font-bold tracking-wide transition-all duration-300 hover:scale-105 active:scale-95 bg-[#4d91ff] text-white shadow-lg hover:shadow-[#7A3F91]/40"
-            >
-              Contact
-            </button>
-          </div>
-
-          {/* Mobile Menu Button - White */}
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden p-2 rounded-lg transition-colors duration-300 hover:bg-white/10 text-white"
+      {/* 2. The Navigation Capsule */}
+      <AnimatePresence mode="wait">
+        {(isMobileMenuOpen || !isMobile) && (
+          <motion.header
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            variants={menuVariants}
+            className={`z-50 bg-[#0a0a0c]/90 backdrop-blur-2xl border border-white/10 rounded-[3rem] shadow-2xl flex ${containerClasses}`}
           >
-            {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
-        </nav>
+            {/* Logo */}
+            <motion.a 
+              href="/" 
+              whileHover="hover"
+              whileTap="tap"
+              className="relative group flex items-center justify-center shrink-0"
+            >
+              <motion.img 
+                src={logoLight} 
+                alt="Logo" 
+                className="h-10 w-auto z-10 relative"
+                variants={{
+                  hover: { scale: 0.85, y: -5, filter: "brightness(1.2) contrast(1.1)" },
+                  tap: { scale: 0.95 }
+                }}
+              />
+              <motion.div 
+                variants={{ hover: { scale: 2, opacity: 0.6 }}}
+                className="absolute inset-0 bg-primary/20 blur-2xl rounded-full -z-10"
+              />
+            </motion.a>
 
-        {/* Mobile Menu - Dark Background */}
-        <div
-          className={`md:hidden absolute top-full left-0 right-0 bg-black/95 backdrop-blur-md shadow-elevated transition-all duration-300 origin-top ${
-            isMobileMenuOpen ? 'opacity-100 scale-y-100' : 'opacity-0 scale-y-0 pointer-events-none'
-          }`}
-        >
-          <div className="container mx-auto px-4 py-6 space-y-4">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                onClick={() => setIsMobileMenuOpen(false)}
-                // Applied DM Sans here
-                className="block text-white font-dm-sans font-medium py-2 hover:text-[#7A3F91] hover:pl-2 transition-all duration-300"
-              >
-                {link.name}
-              </a>
-            ))}
-          </div>
-        </div>
-      </div>
-    </header>
+            {/* Navigation Links (Home, About, Experience, Projects, Skills) */}
+            <nav className={`flex relative items-center ${navContainerClasses}`}>
+              {navLinks.map((link) => (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  onMouseEnter={() => setHoveredLink(link.name)}
+                  onMouseLeave={() => setHoveredLink(null)}
+                  className="group relative p-2 flex justify-center rounded-xl transition-colors duration-300"
+                >
+                  {hoveredLink === link.name && (
+                    <motion.div
+                      layoutId="nav-glow"
+                      className="absolute inset-0 bg-primary/10 rounded-xl -z-10 border border-primary/20"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                    />
+                  )}
+                  
+                  <motion.span 
+                    animate={{ 
+                      color: hoveredLink === link.name ? '#4d91ff' : '#94a3b8',
+                      scale: hoveredLink === link.name ? 1.2 : 1 
+                    }}
+                    className="block relative z-10"
+                  >
+                    {link.icon}
+                  </motion.span>
+
+                  {/* Desktop Tooltip */}
+                  <AnimatePresence>
+                    {hoveredLink === link.name && !isMobile && (
+                      <motion.span
+                        initial={{ opacity: 0, x: 20, scale: 0.8 }}
+                        animate={{ opacity: 1, x: 60, scale: 1 }} 
+                        exit={{ opacity: 0, x: 20, scale: 0.8 }}
+                        className="absolute left-0 top-1/2 -translate-y-1/2 bg-[#1a1a1e] border border-white/10 text-white text-[10px] uppercase tracking-widest font-bold px-3 py-1.5 rounded-lg shadow-2xl pointer-events-none whitespace-nowrap z-50 ml-2"
+                      >
+                        {link.name}
+                      </motion.span>
+                    )}
+                  </AnimatePresence>
+                </a>
+              ))}
+            </nav>
+
+            {/* Bottom/Right Contact Button (Mail Icon) */}
+             <motion.div className="relative group shrink-0">
+               <motion.button
+                 whileHover={{ scale: 1.1 }}
+                 whileTap={{ scale: 0.9 }}
+                 className="p-3.5 rounded-2xl bg-gradient-to-br from-primary to-blue-600 text-white shadow-[0_0_20px_rgba(77,145,255,0.3)] relative z-10"
+               >
+                 <Mail size={20} />
+               </motion.button>
+               <div className="absolute inset-0 bg-primary/40 rounded-2xl animate-ping group-hover:hidden" />
+             </motion.div>
+
+          </motion.header>
+        )}
+      </AnimatePresence>
+
+      {/* Mobile Overlay */}
+      <AnimatePresence>
+        {isMobileMenuOpen && isMobile && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 md:hidden"
+            onClick={() => setIsMobileMenuOpen(false)}
+          />
+        )}
+      </AnimatePresence>
+    </>
   );
 };
 
